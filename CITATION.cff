@@ -2,6 +2,7 @@ cff-version: 1.2.0
 message: "If you use this portfolio analysis or its survey-methods implementation, please cite it as follows."
 title: "NHANES Nutrition Survey Analysis"
 type: software
+license: MIT
 authors:
   - family-names: Jeans
     given-names: Matthew

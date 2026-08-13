@@ -66,3 +66,7 @@ Two 24-hour recalls improve on a single recall but do not identify each particip
 ## Citation
 
 Citation metadata are available in [`CITATION.cff`](CITATION.cff). The underlying NHANES files remain governed and cited by CDC/NCHS.
+
+## License
+
+Code and documentation are available under the [MIT License](LICENSE). The underlying CDC/NCHS public-use data remain governed by their source terms.
