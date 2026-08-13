@@ -1,0 +1,13 @@
+group_type,group,measure,estimate,standard_error,lower_95,upper_95,unweighted_n,effective_n
+Overall,All adults,"Fiber (g per 1,000 kcal)",8.2923,0.1304,8.0366,8.5479,4095,1445.9051
+Overall,All adults,"Sodium (mg per 1,000 kcal)",1668.2304,11.3731,1645.9392,1690.5216,4095,1445.9051
+Sex,Male,"Fiber (g per 1,000 kcal)",7.7646,0.1590,7.4530,8.0762,1977,665.0672
+Sex,Male,"Sodium (mg per 1,000 kcal)",1682.5687,15.3751,1652.4335,1712.7039,1977,665.0672
+Sex,Female,"Fiber (g per 1,000 kcal)",8.7841,0.1515,8.4872,9.0811,2118,784.0555
+Sex,Female,"Sodium (mg per 1,000 kcal)",1654.8644,16.5766,1622.3743,1687.3545,2118,784.0555
+Age group,20-39,"Fiber (g per 1,000 kcal)",8.0125,0.1751,7.6693,8.3557,1191,552.4072
+Age group,20-39,"Sodium (mg per 1,000 kcal)",1726.6296,16.5700,1694.1525,1759.1067,1191,552.4072
+Age group,40-59,"Fiber (g per 1,000 kcal)",8.0393,0.1712,7.7036,8.3749,1318,412.7996
+Age group,40-59,"Sodium (mg per 1,000 kcal)",1642.3269,19.1039,1604.8834,1679.7705,1318,412.7996
+Age group,60+,"Fiber (g per 1,000 kcal)",8.9305,0.1871,8.5638,9.2972,1586,522.4459
+Age group,60+,"Sodium (mg per 1,000 kcal)",1628.5839,17.0368,1595.1918,1661.9760,1586,522.4459

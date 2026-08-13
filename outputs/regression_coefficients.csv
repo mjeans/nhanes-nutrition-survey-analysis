@@ -1,0 +1,11 @@
+outcome,term,estimate,standard_error,lower_95,upper_95,unweighted_n
+"Fiber (g per 1,000 kcal)","Intercept: male, age 20-39, income ratio 0",6.9987,0.2495,6.5097,7.4877,3644
+"Fiber (g per 1,000 kcal)",Age 40-59 vs 20-39,-0.0574,0.1726,-0.3958,0.2809,3644
+"Fiber (g per 1,000 kcal)",Age 60+ vs 20-39,0.7923,0.2312,0.3391,1.2455,3644
+"Fiber (g per 1,000 kcal)",Female vs male,0.9779,0.1964,0.5930,1.3628,3644
+"Fiber (g per 1,000 kcal)",Family income-to-poverty ratio (per unit),0.1732,0.0501,0.0750,0.2714,3644
+"Sodium (mg per 1,000 kcal)","Intercept: male, age 20-39, income ratio 0",1670.0425,31.0503,1609.1839,1730.9010,3644
+"Sodium (mg per 1,000 kcal)",Age 40-59 vs 20-39,-86.3323,23.9951,-133.3627,-39.3019,3644
+"Sodium (mg per 1,000 kcal)",Age 60+ vs 20-39,-111.3969,25.8863,-162.1341,-60.6597,3644
+"Sodium (mg per 1,000 kcal)",Female vs male,-9.7683,23.9430,-56.6967,37.1600,3644
+"Sodium (mg per 1,000 kcal)",Family income-to-poverty ratio (per unit),21.3492,7.3370,6.9685,35.7298,3644

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this portfolio analysis or its survey-methods implementation, please cite it as follows."
+title: "NHANES Nutrition Survey Analysis"
+type: software
+authors:
+  - family-names: Jeans
+    given-names: Matthew
+repository-code: "https://github.com/mjeans/nhanes-nutrition-survey-analysis"
+url: "https://github.com/mjeans/nhanes-nutrition-survey-analysis"
+abstract: "A reproducible analysis of two-day fiber and sodium density in NHANES 2017-2018 with dietary weights, domain estimation, Taylor-linearized uncertainty, and survey-weighted regression."
+keywords:
+  - nutritional epidemiology
+  - NHANES
+  - complex surveys
+  - dietary recall
+  - biostatistics
