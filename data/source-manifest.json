@@ -1,0 +1,14 @@
+{
+  "DEMO_J.XPT": {
+    "url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.XPT",
+    "sha256": "c0b46e0345ea19404928656277c8b0d10b0cca348a9b2fe4fc3c67e8b7ee73ec"
+  },
+  "DR1TOT_J.XPT": {
+    "url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DR1TOT_J.XPT",
+    "sha256": "390ae5205acfbcb87e0ca3d9aabd1c801b60657d3f2802ac08d5b3ed93f0af6d"
+  },
+  "DR2TOT_J.XPT": {
+    "url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DR2TOT_J.XPT",
+    "sha256": "b73be9b0a4787e73eb831d22b356d03657ffae7d41e5713b60aaa49b828d9c1b"
+  }
+}

@@ -43,7 +43,17 @@ Regression is limited to complete records for the listed variables. The cohort-f
 - Dietary recalls can contain underreporting, overreporting, correlated error, and within-person variation.
 - Nutrient density controls for total reported energy only through a ratio and does not remove all dietary measurement error.
 - Public-use masked design variables support valid public analyses but do not reproduce every internal NCHS design feature.
-- Normal 95% confidence intervals are used for compact portfolio reporting.
+- Mean intervals use a t reference with domain design df (represented PSUs minus represented strata). Regression intervals use residual df = domain design df - model rank + 1. Zero or negative inferential df produces unavailable bounds, not a normal fallback.
 - Multiple comparisons are not adjusted; subgroup results are descriptive.
 
 The implementation is intended to be inspectable and educational. A publication-quality analysis would prespecify a protocol, consider multi-cycle pooling, evaluate influential weights and sparse domains, assess missing-data assumptions, and use a validated usual-intake model where the research question requires it.
+
+## Benchmark, input policy, and reproducibility
+
+`scripts/benchmark_survey.R` produces the committed reference fixture with R `survey` 4.5 and `jsonlite`. It compares `svymean` and `svyglm` estimates, standard errors, and covariance under full, sparse-domain, and missing-predictor cases. Run `Rscript scripts/benchmark_survey.R`, followed by `python tests/test_survey_methods.py`. Python tests compare estimates and covariance at numerical tolerance, rather than merely requiring nonnegative SEs.
+
+Full eligible-design PSU totals remain in Taylor variance calculations, including zeros outside a domain. The df policy follows the represented domain design (`degf` on the subset in R). A full-design stratum containing only one PSU is rejected: no silent deletion or automatic lonely-PSU adjustment is applied. Duplicate indices, nonunique person merges, and rank-deficient regressions are rejected.
+
+The three CDC downloads are checked against `data/source-manifest.json`. A changed checksum is a review event, not permission to silently refresh the reference data. Raw XPT files remain ignored.
+
+The [executed report](../outputs/report.md) separates measured outcome differences by income-response status from a simple delta-shift missing-income stress test. Scenario coefficient estimates do not include inferential intervals because deterministic imputation does not account for missing-data uncertainty.

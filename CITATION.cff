@@ -6,6 +6,7 @@ license: MIT
 authors:
   - family-names: Jeans
     given-names: Matthew
+    orcid: "https://orcid.org/0000-0002-1140-3185"
 repository-code: "https://github.com/mjeans/nhanes-nutrition-survey-analysis"
 url: "https://github.com/mjeans/nhanes-nutrition-survey-analysis"
 abstract: "A reproducible analysis of two-day fiber and sodium density in NHANES 2017-2018 with dietary weights, domain estimation, Taylor-linearized uncertainty, and survey-weighted regression."

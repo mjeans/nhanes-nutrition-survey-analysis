@@ -27,7 +27,9 @@ Nutrition analyses built from national surveys require more than downloading a s
 
 ![Survey-weighted fiber density by age group](assets/fiber-density-by-age.svg)
 
-The complete generated findings are in [the analysis summary](outputs/summary.md), with machine-readable [domain estimates](outputs/nutrient_density_by_group.csv), [regression estimates](outputs/regression_coefficients.csv), and [cohort flow](outputs/analytic_cohort_flow.csv).
+![Survey-weighted sodium density by age group with 95% confidence intervals](assets/sodium-density-by-age.svg)
+
+Read the [executed analysis report](outputs/report.md) for cohort flow, adjusted associations, source verification, and missing-income sensitivity scenarios. A [short summary](outputs/summary.md), [domain estimates](outputs/nutrient_density_by_group.csv), [regression estimates](outputs/regression_coefficients.csv), and [cohort flow](outputs/analytic_cohort_flow.csv) are also available. Intervals use a t reference with explicitly reported survey degrees of freedom.
 
 ## Repository map
 

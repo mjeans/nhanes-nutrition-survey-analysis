@@ -1,0 +1,7 @@
+group,outcome,estimate,lower_95,upper_95,unweighted_n,design_df
+All eligible adults,fiber_g_per_1000_kcal,8.2923,8.0142,8.5703,4095,15
+All eligible adults,sodium_mg_per_1000_kcal,1668.2304,1643.9893,1692.4715,4095,15
+Income observed,fiber_g_per_1000_kcal,8.2554,7.9922,8.5185,3644,15
+Income observed,sodium_mg_per_1000_kcal,1668.5417,1641.6197,1695.4637,3644,15
+Income missing,fiber_g_per_1000_kcal,8.6810,8.0062,9.3559,451,15
+Income missing,sodium_mg_per_1000_kcal,1664.9480,1596.8504,1733.0457,451,15

@@ -8,6 +8,7 @@ from typing import Iterable
 
 import numpy as np
 import pandas as pd
+from scipy.stats import t
 
 
 @dataclass(frozen=True)
@@ -18,6 +19,7 @@ class SurveyEstimate:
     upper_95: float
     unweighted_n: int
     effective_n: float
+    design_df: int
 
 
 @dataclass(frozen=True)
@@ -26,6 +28,22 @@ class SurveyRegression:
     covariance: pd.DataFrame
     standard_errors: pd.Series
     unweighted_n: int
+    design_df: int
+    residual_df: int
+
+
+def design_degrees_of_freedom(frame, eligible, strata, psu) -> int:
+    """Domain-represented PSUs minus represented strata (CDC convention)."""
+    represented = frame.loc[eligible, [strata, psu]].drop_duplicates()
+    return int(len(represented) - represented[strata].nunique())
+
+
+def confidence_interval(estimate, standard_error, degrees_freedom):
+    """No interval is reported when the domain has no residual design df."""
+    if degrees_freedom <= 0:
+        return float("nan"), float("nan")
+    critical = float(t.ppf(.975, degrees_freedom))
+    return estimate - critical * standard_error, estimate + critical * standard_error
 
 
 def _design_frame(
@@ -35,6 +53,8 @@ def _design_frame(
     psu: str,
 ) -> pd.DataFrame:
     frame = data.copy()
+    if not frame.index.is_unique:
+        raise ValueError("Survey records require a unique index for domain alignment.")
     required = [weight, strata, psu]
     missing = [column for column in required if column not in frame.columns]
     if missing:
@@ -68,7 +88,7 @@ def _taylor_variance(
         values = stratum[columns].to_numpy(dtype=float)
         m_h = len(values)
         if m_h < 2:
-            continue
+            raise ValueError("Single-PSU stratum: specify a justified design policy; silently dropping it is not allowed.")
         usable_strata += 1
         centered = values - values.mean(axis=0, keepdims=True)
         variance += (m_h / (m_h - 1.0)) * centered.T @ centered
@@ -93,7 +113,7 @@ def survey_mean(
 
     eligible = frame[outcome].notna() & np.isfinite(frame[outcome])
     if domain is not None:
-        eligible &= domain.reindex(frame.index, fill_value=False).astype(bool)
+        eligible &= domain.reindex(frame.index, fill_value=False).fillna(False).astype(bool)
 
     effective_weight = frame[weight].where(eligible, 0.0)
     total_weight = float(effective_weight.sum())
@@ -113,13 +133,16 @@ def survey_mean(
     effective_n = float(
         domain_weights.sum() ** 2 / np.square(domain_weights).sum()
     )
+    degrees_freedom = design_degrees_of_freedom(frame, eligible, strata, psu)
+    lower, upper = confidence_interval(estimate, standard_error, degrees_freedom)
     return SurveyEstimate(
         estimate=estimate,
         standard_error=standard_error,
-        lower_95=estimate - 1.96 * standard_error,
-        upper_95=estimate + 1.96 * standard_error,
+        lower_95=lower,
+        upper_95=upper,
         unweighted_n=int(eligible.sum()),
         effective_n=effective_n,
+        design_df=degrees_freedom,
     )
 
 
@@ -144,7 +167,7 @@ def survey_wls(
     finite = np.isfinite(frame[needed].to_numpy(dtype=float)).all(axis=1)
     eligible &= pd.Series(finite, index=frame.index)
     if domain is not None:
-        eligible &= domain.reindex(frame.index, fill_value=False).astype(bool)
+        eligible &= domain.reindex(frame.index, fill_value=False).fillna(False).astype(bool)
 
     model = frame.loc[eligible]
     if len(model) <= len(predictors):
@@ -152,8 +175,11 @@ def survey_wls(
     x = model[predictors].to_numpy(dtype=float)
     y = model[outcome].to_numpy(dtype=float)
     w = model[weight].to_numpy(dtype=float)
+    rank = np.linalg.matrix_rank(x * np.sqrt(w[:, None]))
+    if rank < len(predictors):
+        raise ValueError("Regression design matrix is rank deficient.")
     xtwx = x.T @ (w[:, None] * x)
-    bread = np.linalg.pinv(xtwx)
+    bread = np.linalg.inv(xtwx)
     beta = bread @ (x.T @ (w * y))
     residual = y - x @ beta
 
@@ -178,4 +204,6 @@ def survey_wls(
         covariance=covariance_frame,
         standard_errors=standard_errors,
         unweighted_n=int(eligible.sum()),
+        design_df=design_degrees_of_freedom(frame, eligible, strata, psu),
+        residual_df=design_degrees_of_freedom(frame, eligible, strata, psu) - rank + 1,
     )

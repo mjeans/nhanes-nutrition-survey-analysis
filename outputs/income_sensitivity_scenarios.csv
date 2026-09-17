@@ -1,0 +1,7 @@
+scenario,outcome,income_coefficient,unweighted_n
+Missing income: cell median -1,"Fiber (g per 1,000 kcal)",0.1335,4095
+Missing income: cell median -1,"Sodium (mg per 1,000 kcal)",19.0198,4095
+Missing income: cell median +0,"Fiber (g per 1,000 kcal)",0.1581,4095
+Missing income: cell median +0,"Sodium (mg per 1,000 kcal)",20.6466,4095
+Missing income: cell median +1,"Fiber (g per 1,000 kcal)",0.1752,4095
+Missing income: cell median +1,"Sodium (mg per 1,000 kcal)",21.0992,4095
