@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="480" viewBox="0 0 1000 480" role="img" aria-labelledby="title desc">
+<title id="title">Survey-weighted sodium density by age</title><desc id="desc">Horizontal points are weighted means, with Taylor-linearized t-based 95% confidence intervals. Age labels include unweighted sample size. The axis is focused, not zero-based.</desc>
+<rect width="100%" height="100%" fill="white"/><g font-family="Arial, sans-serif">
+<text x="40.0" y="46.0" font-size="27" fill="#142d42" text-anchor="start" font-weight="700">Survey-weighted sodium density by age</text>
+<text x="40.0" y="76.0" font-size="16" fill="#687b89" text-anchor="start" font-weight="400">NHANES 2017–2018 | adults with two reliable dietary recalls</text>
+<line x1="40.0" y1="100.0" x2="960.0" y2="100.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="710.0" y="137.0" font-size="15" fill="#687b89" text-anchor="start" font-weight="400">Mean (95% CI)</text>
+<text x="930.0" y="137.0" font-size="15" fill="#687b89" text-anchor="end" font-weight="400">df</text>
+<line x1="210.0" y1="158.0" x2="210.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="210.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1500</text>
+<line x1="270.0" y1="158.0" x2="270.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="270.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1550</text>
+<line x1="330.0" y1="158.0" x2="330.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="330.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1600</text>
+<line x1="390.0" y1="158.0" x2="390.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="390.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1650</text>
+<line x1="450.0" y1="158.0" x2="450.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="450.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1700</text>
+<line x1="510.0" y1="158.0" x2="510.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="510.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1750</text>
+<line x1="570.0" y1="158.0" x2="570.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="570.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1800</text>
+<line x1="630.0" y1="158.0" x2="630.0" y2="360.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="630.0" y="390.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1850</text>
+<text x="40.0" y="183.0" font-size="19" fill="#142d42" text-anchor="start" font-weight="700">20-39 years</text>
+<text x="40.0" y="207.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">n = 1,191</text>
+<line x1="439.6" y1="185.0" x2="524.3" y2="185.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="482.0" cy="185" r="7" fill="#087e83"/>
+<text x="710.0" y="190.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">1726.6 (1691.3, 1761.9)</text>
+<text x="930.0" y="190.0" font-size="16" fill="#687b89" text-anchor="end" font-weight="400">15</text>
+<text x="40.0" y="259.0" font-size="19" fill="#142d42" text-anchor="start" font-weight="700">40-59 years</text>
+<text x="40.0" y="283.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">n = 1,318</text>
+<line x1="331.9" y1="261.0" x2="429.7" y2="261.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="380.8" cy="261" r="7" fill="#087e83"/>
+<text x="710.0" y="266.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">1642.3 (1601.6, 1683.0)</text>
+<text x="930.0" y="266.0" font-size="16" fill="#687b89" text-anchor="end" font-weight="400">15</text>
+<text x="40.0" y="335.0" font-size="19" fill="#142d42" text-anchor="start" font-weight="700">60+ years</text>
+<text x="40.0" y="359.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">n = 1,586</text>
+<line x1="320.7" y1="337.0" x2="407.9" y2="337.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="364.3" cy="337" r="7" fill="#087e83"/>
+<text x="710.0" y="342.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">1628.6 (1592.3, 1664.9)</text>
+<text x="930.0" y="342.0" font-size="16" fill="#687b89" text-anchor="end" font-weight="400">15</text>
+<text x="420.0" y="426.0" font-size="16" fill="#687b89" text-anchor="middle" font-weight="400">mg per 1,000 kcal (focused scale)</text>
+<text x="40.0" y="456.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">Source: CDC/NCHS public-use dietary files. Group intervals do not test between-group differences.</text>
+</g></svg>

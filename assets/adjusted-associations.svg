@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="865" viewBox="0 0 1000 865" role="img" aria-labelledby="title desc">
+<title id="title">Adjusted nutrient-density associations</title><desc id="desc">Two separate unit scales display coefficients and t-based 95% confidence intervals. The intercept is omitted. Vertical lines mark zero association; these are not causal effects.</desc>
+<rect width="100%" height="100%" fill="white"/><g font-family="Arial, sans-serif">
+<text x="40.0" y="46.0" font-size="27" fill="#142d42" text-anchor="start" font-weight="700">Adjusted nutrient-density associations</text>
+<text x="40.0" y="76.0" font-size="16" fill="#687b89" text-anchor="start" font-weight="400">NHANES 2017–2018 | survey-weighted descriptive regressions</text>
+<line x1="40.0" y1="100.0" x2="960.0" y2="100.0" stroke="#dae3e9" stroke-width="1"/>
+<text x="40.0" y="155.0" font-size="21" fill="#142d42" text-anchor="start" font-weight="700">Fiber (g per 1,000 kcal)</text>
+<text x="715.0" y="155.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">Coefficient (95% CI)</text>
+<line x1="447.0" y1="177.0" x2="447.0" y2="396.0" stroke="#687b89" stroke-width="1.5"/>
+<text x="40.0" y="208.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Age 40–59 vs 20–39</text>
+<line x1="392.6" y1="203.0" x2="487.1" y2="203.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="439.9" cy="203" r="6" fill="#087e83"/>
+<text x="715.0" y="208.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">-0.06 (-0.44, 0.32)</text>
+<text x="40.0" y="260.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Age 60+ vs 20–39</text>
+<line x1="482.2" y1="255.0" x2="608.9" y2="255.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="545.6" cy="255" r="6" fill="#087e83"/>
+<text x="715.0" y="260.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">0.79 (0.28, 1.30)</text>
+<text x="40.0" y="312.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Female vs male</text>
+<line x1="514.9" y1="307.0" x2="622.4" y2="307.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="568.6" cy="307" r="6" fill="#087e83"/>
+<text x="715.0" y="312.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">0.98 (0.55, 1.41)</text>
+<text x="40.0" y="364.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Income-to-poverty ratio (+1)</text>
+<line x1="454.8" y1="359.0" x2="482.3" y2="359.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="468.5" cy="359" r="6" fill="#087e83"/>
+<text x="715.0" y="364.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">0.17 (0.06, 0.28)</text>
+<text x="365.0" y="419.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">-0.7</text>
+<text x="447.0" y="419.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">0.0</text>
+<text x="650.0" y="419.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">1.6</text>
+<text x="40.0" y="450.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">Complete-case n = 3,644; residual design df = 11</text>
+<text x="40.0" y="490.0" font-size="21" fill="#142d42" text-anchor="start" font-weight="700">Sodium (mg per 1,000 kcal)</text>
+<text x="715.0" y="490.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">Coefficient (95% CI)</text>
+<line x1="575.7" y1="512.0" x2="575.7" y2="731.0" stroke="#687b89" stroke-width="1.5"/>
+<text x="40.0" y="543.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Age 40–59 vs 20–39</text>
+<line x1="424.4" y1="538.0" x2="539.3" y2="538.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="481.8" cy="538" r="6" fill="#087e83"/>
+<text x="715.0" y="543.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">-86.33 (-139.15, -33.52)</text>
+<text x="40.0" y="595.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Age 60+ vs 20–39</text>
+<line x1="392.6" y1="590.0" x2="516.5" y2="590.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="454.6" cy="590" r="6" fill="#087e83"/>
+<text x="715.0" y="595.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">-111.40 (-168.37, -54.42)</text>
+<text x="40.0" y="647.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Female vs male</text>
+<line x1="507.8" y1="642.0" x2="622.4" y2="642.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="565.1" cy="642" r="6" fill="#087e83"/>
+<text x="715.0" y="647.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">-9.77 (-62.47, 42.93)</text>
+<text x="40.0" y="699.0" font-size="16" fill="#142d42" text-anchor="start" font-weight="400">Income-to-poverty ratio (+1)</text>
+<line x1="581.4" y1="694.0" x2="616.5" y2="694.0" stroke="#087e83" stroke-width="3"/>
+<circle cx="598.9" cy="694" r="6" fill="#087e83"/>
+<text x="715.0" y="699.0" font-size="15" fill="#142d42" text-anchor="start" font-weight="400">21.35 (5.20, 37.50)</text>
+<text x="365.0" y="754.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">-193.7</text>
+<text x="575.7" y="754.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">0.0</text>
+<text x="650.0" y="754.0" font-size="14" fill="#687b89" text-anchor="middle" font-weight="400">68.3</text>
+<text x="40.0" y="785.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">Complete-case n = 3,644; residual design df = 11</text>
+<text x="40.0" y="841.0" font-size="14" fill="#687b89" text-anchor="start" font-weight="400">Adjusted for age group, sex, and income ratio. Cross-sectional associations; measurement error remains.</text>
+</g></svg>

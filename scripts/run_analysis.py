@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import sys
+import hashlib
+import json
 import urllib.request
 from pathlib import Path
 
@@ -12,7 +14,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from survey_methods import survey_mean, survey_wls
+from survey_methods import survey_mean, survey_wls, confidence_interval
 
 DATA_DIR = ROOT / "data" / "raw"
 OUTPUT_DIR = ROOT / "outputs"
@@ -28,13 +30,20 @@ SOURCES = {
 def download_file(filename: str, url: str) -> Path:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     destination = DATA_DIR / filename
-    if destination.exists():
-        return destination
-    request = urllib.request.Request(
-        url, headers={"User-Agent": "mjeans-nhanes-portfolio/1.0"}
-    )
-    with urllib.request.urlopen(request, timeout=120) as response:
-        destination.write_bytes(response.read())
+    if not destination.exists():
+        request = urllib.request.Request(
+            url, headers={"User-Agent": "mjeans-nhanes-portfolio/1.1"}
+        )
+        with urllib.request.urlopen(request, timeout=120) as response:
+            payload = response.read()
+        # Atomic replacement avoids accepting an interrupted partial download.
+        temporary = destination.with_suffix(".download")
+        temporary.write_bytes(payload)
+        temporary.replace(destination)
+    manifest = json.loads((ROOT / "data" / "source-manifest.json").read_text())
+    expected = manifest[filename]["sha256"]
+    if hashlib.sha256(destination.read_bytes()).hexdigest() != expected:
+        raise ValueError(f"Checksum mismatch for {filename}; verify the source before refreshing the manifest.")
     return destination
 
 
@@ -81,8 +90,10 @@ def build_analysis_frame() -> pd.DataFrame:
             "DR2TSODI",
         ],
     )
-    frame = demo.merge(day1, on="SEQN", how="left").merge(
-        day2, on="SEQN", how="left"
+    if any(table["SEQN"].isna().any() for table in (demo, day1, day2)):
+        raise ValueError("NHANES person identifiers cannot be missing.")
+    frame = demo.merge(day1, on="SEQN", how="left", validate="one_to_one").merge(
+        day2, on="SEQN", how="left", validate="one_to_one"
     )
     frame["mean_energy_kcal"] = frame[["DR1TKCAL", "DR2TKCAL"]].mean(
         axis=1, skipna=False
@@ -205,6 +216,7 @@ def descriptive_estimates(
                     "upper_95": result.upper_95,
                     "unweighted_n": result.unweighted_n,
                     "effective_n": result.effective_n,
+                    "design_df": result.design_df,
                 }
             )
     return pd.DataFrame(rows)
@@ -250,76 +262,25 @@ def regression_estimates(
         for predictor in predictors:
             estimate = float(model.coefficients[predictor])
             standard_error = float(model.standard_errors[predictor])
+            lower, upper = confidence_interval(estimate, standard_error, model.residual_df)
             rows.append(
                 {
                     "outcome": outcome_label,
                     "term": labels[predictor],
                     "estimate": estimate,
                     "standard_error": standard_error,
-                    "lower_95": estimate - 1.96 * standard_error,
-                    "upper_95": estimate + 1.96 * standard_error,
+                    "lower_95": lower,
+                    "upper_95": upper,
                     "unweighted_n": model.unweighted_n,
+                    "design_df": model.design_df,
+                    "residual_df": model.residual_df,
                 }
             )
     return pd.DataFrame(rows)
 
 
-def write_fiber_svg(estimates: pd.DataFrame) -> None:
-    age = estimates.loc[
-        (estimates["group_type"] == "Age group")
-        & (estimates["measure"] == "Fiber (g per 1,000 kcal)")
-    ].copy()
-    age["group"] = pd.Categorical(
-        age["group"], categories=["20-39", "40-59", "60+"], ordered=True
-    )
-    age = age.sort_values("group")
-    width, height = 900, 470
-    left, top, chart_width, chart_height = 110, 105, 720, 260
-    maximum = max(18.0, float(age["upper_95"].max()) * 1.15)
-    colors = ["#0f766e", "#2563eb", "#ea580c"]
-    lines = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">',
-        '<rect width="100%" height="100%" fill="#f8fafc"/>',
-        '<text x="40" y="52" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#0f172a">Survey-weighted fiber density by age group</text>',
-        '<text x="40" y="82" font-family="Arial, sans-serif" font-size="16" fill="#475569">NHANES 2017–2018 adults; two-day dietary recall; 95% design-based confidence intervals</text>',
-    ]
-    for tick in range(0, int(maximum) + 1, 5):
-        y = top + chart_height - (tick / maximum) * chart_height
-        lines.extend(
-            [
-                f'<line x1="{left}" y1="{y:.1f}" x2="{left + chart_width}" y2="{y:.1f}" stroke="#cbd5e1" stroke-width="1"/>',
-                f'<text x="{left - 18}" y="{y + 5:.1f}" text-anchor="end" font-family="Arial, sans-serif" font-size="14" fill="#475569">{tick}</text>',
-            ]
-        )
-    bar_width = 120
-    spacing = chart_width / len(age)
-    for index, (_, row) in enumerate(age.iterrows()):
-        center = left + spacing * (index + 0.5)
-        bar_height = float(row["estimate"]) / maximum * chart_height
-        y = top + chart_height - bar_height
-        low_y = top + chart_height - float(row["lower_95"]) / maximum * chart_height
-        high_y = top + chart_height - float(row["upper_95"]) / maximum * chart_height
-        lines.extend(
-            [
-                f'<rect x="{center - bar_width / 2:.1f}" y="{y:.1f}" width="{bar_width}" height="{bar_height:.1f}" rx="6" fill="{colors[index]}"/>',
-                f'<line x1="{center:.1f}" y1="{high_y:.1f}" x2="{center:.1f}" y2="{low_y:.1f}" stroke="#0f172a" stroke-width="3"/>',
-                f'<line x1="{center - 12:.1f}" y1="{high_y:.1f}" x2="{center + 12:.1f}" y2="{high_y:.1f}" stroke="#0f172a" stroke-width="3"/>',
-                f'<line x1="{center - 12:.1f}" y1="{low_y:.1f}" x2="{center + 12:.1f}" y2="{low_y:.1f}" stroke="#0f172a" stroke-width="3"/>',
-                f'<text x="{center:.1f}" y="{y - 14:.1f}" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f172a">{row["estimate"]:.1f}</text>',
-                f'<text x="{center:.1f}" y="{top + chart_height + 34:.1f}" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#0f172a">{row["group"]}</text>',
-            ]
-        )
-    lines.extend(
-        [
-            '<text x="22" y="240" transform="rotate(-90 22 240)" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#475569">Grams per 1,000 kcal</text>',
-            '<text x="450" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" fill="#64748b">Source: CDC/NCHS NHANES 2017–2018 public-use files</text>',
-            "</svg>",
-        ]
-    )
-    ASSET_DIR.mkdir(parents=True, exist_ok=True)
-    (ASSET_DIR / "fiber-density-by-age.svg").write_text(
-        "\n".join(lines) + "\n", encoding="utf-8", newline="\n"
-    )
+from research_figures import density_by_age, coefficients as plot_coefficients
+
 
 
 def write_summary(
@@ -401,8 +362,12 @@ def main() -> None:
         float_format="%.4f",
         lineterminator="\n",
     )
-    write_fiber_svg(estimates)
+    density_by_age(ASSET_DIR / "fiber-density-by-age.svg", estimates, "fiber")
+    density_by_age(ASSET_DIR / "sodium-density-by-age.svg", estimates, "sodium")
+    plot_coefficients(ASSET_DIR / "adjusted-associations.svg", regressions)
     write_summary(estimates, regressions, flow)
+    from executed_report import write_report
+    write_report(frame, masks, estimates, regressions, flow, OUTPUT_DIR)
 
 
 if __name__ == "__main__":

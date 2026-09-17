@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import json
 import unittest
 from pathlib import Path
 
@@ -14,6 +15,40 @@ from survey_methods import survey_mean, survey_wls
 
 
 class TestSurveyMethods(unittest.TestCase):
+    def test_independent_r_survey_reference(self) -> None:
+        fixture = pd.read_csv(ROOT / "tests/fixtures/survey_fixture.csv")
+        reference = json.loads((ROOT / "tests/fixtures/survey_reference.json").read_text())
+        for case, expected in reference["cases"].items():
+            with self.subTest(case=case):
+                data = fixture.copy()
+                if case == "missing_predictor":
+                    data.loc[0, "x"] = np.nan
+                domain = data.x.ge(1) if case == "sparse_domain" else pd.Series(True, index=data.index)
+                result = survey_mean(data, "outcome", "weight", "stratum", "psu", domain)
+                self.assertAlmostEqual(result.estimate, expected["mean"], places=10)
+                self.assertAlmostEqual(result.standard_error, expected["se"], places=10)
+                self.assertEqual(result.design_df, expected["mean_df"])
+                self.assertAlmostEqual(result.lower_95, expected["lower_95"], places=9)
+                self.assertAlmostEqual(result.upper_95, expected["upper_95"], places=9)
+                model = survey_wls(data, "outcome", ["const", "x"], "weight", "stratum", "psu", domain)
+                np.testing.assert_allclose(model.coefficients, expected["coefficients"], rtol=1e-10, atol=1e-10)
+                np.testing.assert_allclose(model.covariance, expected["covariance"], rtol=1e-10, atol=1e-10)
+                self.assertEqual(model.residual_df, expected["residual_df"])
+
+    def test_lonely_stratum_and_singular_model_fail_explicitly(self) -> None:
+        lonely = self.data.drop(index=[2, 3])
+        with self.assertRaisesRegex(ValueError, "Single-PSU"):
+            survey_mean(lonely, "outcome", "weight", "stratum", "psu")
+        singular = self.data.assign(duplicate=self.data.x)
+        with self.assertRaisesRegex(ValueError, "rank deficient"):
+            survey_wls(singular, "outcome", ["const", "x", "duplicate"], "weight", "stratum", "psu")
+
+    def test_zero_domain_degrees_of_freedom_does_not_fabricate_interval(self) -> None:
+        result = survey_mean(self.data, "outcome", "weight", "stratum", "psu", self.data.x.ge(2))
+        self.assertEqual(result.design_df, 0)
+        self.assertTrue(np.isnan(result.lower_95))
+        self.assertGreater(result.standard_error, 0)
+
     def setUp(self) -> None:
         self.data = pd.DataFrame(
             {
