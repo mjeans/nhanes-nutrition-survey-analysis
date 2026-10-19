@@ -51,7 +51,7 @@ Python 3.12 is recommended.
 
 ```bash
 python -m pip install -r requirements.txt
-python tests/test_survey_methods.py
+python -m unittest discover -s tests -v
 python scripts/run_analysis.py
 ```
 
@@ -60,6 +60,8 @@ The analysis downloads three static CDC/NCHS XPT files into `data/raw/`, which i
 - [Demographic variables and sample design](https://wwwn.cdc.gov/nchs/data/nhanes/public/2017/datafiles/DEMO_J.htm)
 - [Day 1 total nutrient intakes](https://wwwn.cdc.gov/nchs/data/nhanes/public/2017/datafiles/DR1TOT_J.htm)
 - [Day 2 total nutrient intakes](https://wwwn.cdc.gov/nchs/data/nhanes/public/2017/datafiles/DR2TOT_J.htm)
+
+For dependency updates, follow the [maintenance checklist](docs/dependency-updates.md). It explains how to regenerate the report's runtime metadata, review any numerical changes, and retain the strict reproducibility check.
 
 ## Interpretation boundaries
 

@@ -81,4 +81,4 @@ Two recalls do not recover usual intake. Recall error, residual confounding, inf
 
 Run `python scripts/run_analysis.py` after installing `requirements.txt`. Only aggregate outputs are committed. [Source URLs and SHA-256 checksums](../data/source-manifest.json) are verified before analysis.
 
-Executed with Python 3.12, NumPy 2.5.2, pandas 3.0.5, SciPy 1.17.1.
+Executed with Python 3.12, NumPy 2.5.3, pandas 3.0.6, SciPy 1.18.1.
